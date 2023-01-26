@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1674761758 "/Users/aidantai/Documents/Github/cs61/cs181-s23-homeworks/hw0/homework0.tex" "homework0.pdf" "homework0" 1674761759 0
-  "/Users/aidantai/Documents/Github/cs61/cs181-s23-homeworks/hw0/homework0.tex" 1674761757 16940 b2c082fe1300b13bf1308fb20c887aee ""
+["pdflatex"] 1674761892 "/Users/aidantai/Documents/Github/cs61/cs181-s23-homeworks/hw0/homework0.tex" "homework0.pdf" "homework0" 1674761893 0
+  "/Users/aidantai/Documents/Github/cs61/cs181-s23-homeworks/hw0/homework0.tex" 1674761892 16953 fdf34081e0a0a2cc79d809bde5f09243 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1136768653 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -182,9 +182,9 @@
   "/usr/local/texlive/2022/texmf-var/web2c/pdftex/pdflatex.fmt" 1674685729 7877723 d297d10e38808140dfa80cd24b5574d9 ""
   "/usr/local/texlive/2022/texmf.cnf" 1647878952 577 209b46be99c9075fd74d4c0369380e8c ""
   "harvardml.cls" 1674761738 2652 799b8540bbae7b3ed7374bbc9f1f42fb ""
-  "homework0.aux" 1674761759 589 2a9ba7ba2621fa6a1d3ca199ce1b7e6a "pdflatex"
-  "homework0.out" 1674761758 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "homework0.tex" 1674761757 16940 b2c082fe1300b13bf1308fb20c887aee ""
+  "homework0.aux" 1674761893 589 2a9ba7ba2621fa6a1d3ca199ce1b7e6a "pdflatex"
+  "homework0.out" 1674761893 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "homework0.tex" 1674761892 16953 fdf34081e0a0a2cc79d809bde5f09243 ""
   (generated)
   "homework0.aux"
   "homework0.log"
