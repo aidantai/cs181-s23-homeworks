@@ -95,3 +95,4 @@
 
 \theoremstyle{hmlplain}
 \newmdtheoremenv[skipabove=\topsep,skipbelow=\topsep,nobreak=true]{problem}{Problem}
+\newmdtheoremenv[skipabove=\topsep,skipbelow=\topsep,nobreak=true]{solution}{Solution}
