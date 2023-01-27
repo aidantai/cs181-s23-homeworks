@@ -116,6 +116,8 @@ plt.show() # display the figure
 # Degree 16 is overfit: even though the training MSE is 0.000, the test MSE is ridiculously high -- the model is
 # no longer appropriate for realistic data
 
+
+
 np.random.seed(10)
 # DATASET 1
 x1, y1 = generate_toy_data(n_points=50, noise_std=0.1) # generate low noise data
@@ -148,24 +150,30 @@ fig, ax = plt.subplots(1, 2,figsize=(10, 5))
 # Instantiate a LinearRegression model, fit the model, and make predictions on training and test data
 ## COMPLETE
 #
+linear_regressor.fit(x_train1.reshape(-1,1),y_train1.reshape(-1,1))
+y_train_pred = linear_regressor.predict(x_train1.reshape(-1,1))
+
+#
 # Step 2:
 # Plot the learned linear regression model by plotting the model prediction against the training input 
 # COMPLETE
 #
-# ax[0].plot(x_train, y_train_pred, color='red', label='polynomial model')
+ax[0].plot(x_train1, y_train_pred, color='red', label='linear model')
 #
 # Step 3:
 # Compute and print the training and test MSE.
 # COMPLETE
 #
-# mse_train = ...
-# mse_test = ...
+mse_train = mean_squared_error(y_train1, y_train_pred)
+y_test_pred = linear_regressor.predict(x_test1.reshape(-1,1))
+mse_test = mean_squared_error(y_test1, y_test_pred)
 #
-# print('For low noise dataset, training MSE is: {:.3f}, test MSE is: {:.3f}'.format(mse_train, mse_test))
+print('For low noise dataset, training MSE is: {:.3f}, test MSE is: {:.3f}'.format(mse_train, mse_test))
 
 ax[0].scatter(x_train1, y_train1, color='blue') # plot dataset 1
 ax[0].scatter(x_test1, y_test1, color='green') # plot dataset 1
 ax[0].set_title('Low Noise Dataset')
+
 
 # Step 1: 
 # Instantiate a sklearn PolynomialFeatures model of degree=3 
@@ -173,22 +181,31 @@ ax[0].set_title('Low Noise Dataset')
 # (Hint: look for documentation on sklearn.preprocessing.PolynomialFeatures)
 ## COMPLETE
 #
+poly = PolynomialFeatures(degree=3)
+x_train_poly = poly.fit_transform(x_train2.reshape(-1,1))
+x_test_poly = poly.fit_transform(x_test2.reshape(-1,1))
+#
 # Step 2:
 # Instantiate a LinearRegression model, fit the model, and make predictions on training and test data
 ## COMPLETE
+linear_regressor.fit(x_train_poly, y_train2)
+y_train_pred = linear_regressor.predict(x_train_poly)
+y_test_pred = linear_regressor.predict(x_test_poly)
 #
 # Step 3:
 # Plot the learned polynomial regression model by plotting the model prediction against the training input 
 # COMPLETE
 #
-# ax[1].plot(x_train, y_train_pred, color='red', label='polynomial model')
+
+sorted_indices = x_train2.argsort()
+ax[1].plot(x_train2[sorted_indices], y_train_pred[sorted_indices], color='red', label='polynomial model')
 #
 # Step 4:
 # Compute and print the training and test MSE.
 # COMPLETE
 #
-# mse_train = ...
-# mse_test = ...
+mse_train = mean_squared_error(y_train2, y_train_pred)
+mse_test = mean_squared_error(y_test2, y_test_pred)
 #
 # print('For high noise dataset, training MSE is: {:.3f}, test MSE is: {:.3f}'.format(mse_train, mse_test))
 
