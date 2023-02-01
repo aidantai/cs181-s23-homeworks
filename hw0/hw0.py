@@ -5,6 +5,7 @@ from matplotlib import cm
 import numpy as np
 from scipy.stats import multivariate_normal
 import seaborn
+import pandas
 
 
 # y = f(x_1,x_2) = exp(-(x_1-2)**2-(x_2-1)**2)
@@ -22,18 +23,34 @@ def problem_two():
 
 
 def problem_three():
-    x = np.linspace(0, 5, 10)
-    y = np.linspace(0, 5, 10)
-    x, y = np.meshgrid(x, y)
-    pos = np.dstack((x, y))
+    # x = np.linspace(0, 240, 10)
+    # y = np.linspace(0, 10, 10)
+    # x, y = np.meshgrid(x, y)
+    # pos = np.dstack((x, y))
 
     mean = [120, 4]
-    cov = [[1.5, 1],[1,1.5]]
+    cov = [[1.5, 1], [1, 1.5]]
     rv = multivariate_normal(mean, cov)
+    samples = rv.rvs(size=500)
+    
+    S = []
+    W = []
+    for sample in samples:
+        s, w = sample
+        S.append(s)
+        W.append(w)
+    print(S)
+    print(W)
+    data = {"S":S, "W":W};
+    print(data)
+    df = pandas.DataFrame(data=data)
+    print(df)
+    # print(sample)
+    seaborn.histplot(df, x="S", y="W")
 
-    fig = plt.figure()
-    ax = fig.add_subplot(111)
-    ax.contourf(x, y, rv.pdf(pos))
+    # fig = plt.figure()
+    # ax = fig.add_subplot(111)
+    # ax.contourf(x, y, rv.pdf(pos))
     plt.show()
 
 if __name__ == '__main__':
