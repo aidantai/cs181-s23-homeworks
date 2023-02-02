@@ -22,7 +22,7 @@ def problem_two():
     plt.show()
 
 
-def problem_three():
+def problem_three_one():
     # x = np.linspace(0, 240, 10)
     # y = np.linspace(0, 10, 10)
     # x, y = np.meshgrid(x, y)
@@ -33,15 +33,15 @@ def problem_three():
     rv = multivariate_normal(mean, cov)
     samples = rv.rvs(size=500)
     
-    S = []
-    W = []
+    s = []
+    w = []
     for sample in samples:
-        s, w = sample
-        S.append(s)
-        W.append(w)
-    print(S)
+        s_, w_ = sample
+        s.append(s_)
+        w.append(w_)
+    print(w)
     print(W)
-    data = {"S":S, "W":W};
+    data = {"S":s, "W":w};
     print(data)
     df = pandas.DataFrame(data=data)
     print(df)
@@ -53,6 +53,52 @@ def problem_three():
     # ax.contourf(x, y, rv.pdf(pos))
     plt.show()
 
+def problem_three_two():
+    mean = [120, 4]
+    cov = [[1.5, 1], [1, 1.5]]
+    rv = multivariate_normal(mean, cov)
+    w = np.linspace(0, 10, 1001)
+    p_118 = []
+    p_122 = []
+    for i in range(1001):
+        p_118.append(rv.pdf([118,w[i]]))
+        p_122.append(rv.pdf([122,w[i]]))
+
+
+    # S = []
+    # W = []
+    # for sample in samples:
+    #     s, w = sample
+    #     S.append(s)
+    #     W.append(w)
+    # data = {"S":S, "W":W};
+    # df = pandas.DataFrame(data=data)
+    # seaborn.histplot(df, x="S", y="W")
+
+    # fig = plt.figure(1, 1)
+    fig, ax = plt.subplots(1, 1, figsize=[15,5])
+    # ax = fig.add_subplot(111)
+    ax.plot(w, p_118)
+    ax.plot(w, p_122)
+    plt.show()
+
+def total_processing_sample():
+    packages = np.random.poisson(72)
+    processes = np.random.normal(86.4, 5.84, size=packages)
+    total_processing_time = np.sum(processes)
+    return total_processing_time
+
+def problem_three_five():
+    samples = []
+    for i in range(1000):
+        samples.append(total_processing_sample())
+    mean = np.average(samples)
+    stdv = np.std(samples)
+    print(mean)
+    print(stdv)
+
+
 if __name__ == '__main__':
-    problem_three()
+    # problem_three_two()
+    problem_three_five()
     
