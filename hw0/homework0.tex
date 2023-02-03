@@ -21,7 +21,6 @@
 \usepackage[shortlabels]{enumitem}
 \usepackage{hyperref}
 \usepackage{graphicx}
-\graphicspath{./images/}
 
 \theoremstyle{definition}
 \newtheorem{defn}{Definition}[section]
@@ -234,4 +233,41 @@ For this problem, you may find the \texttt{multivariate\_normal} module from \te
     \end{enumerate}
 \end{enumerate}
 \end{problem}
+
+\begin{solution}[Probability and Statistics Review]
+\noindent Consider the following model for packages arriving at the US Postal Service (USPS):
+\begin{itemize}
+    \item Packages arrive randomly in any given hour according to a Poisson distribution. That is, the number of packages in a given hour $N$ is distributed $Pois(\lambda)$, with $\lambda = 3$.
+    \item Each package has a random size $S$ (measured in $in^3$) and weight $W$ (measured in pounds), with joint distribution
+    $$(S, W)^{T} \sim \mathcal{N}\left( \boldsymbol{\mu}, \boldsymbol{\Sigma}\right) \text{, with } \boldsymbol{\mu} = \begin{bmatrix} 120 \\ 4 \end{bmatrix} \text{ and } \boldsymbol{\Sigma} = \begin{bmatrix} 1.5 & 1 \\ 1 & 1.5 \end{bmatrix}.$$
+    \item Processing time $T$ (in seconds) for each package is given by $T = 60 + 0.6 W + 0.2 S + \epsilon$, where $\epsilon$ is a random noise variable with Gaussian distribution $\epsilon \sim \mathcal{N}(0, 5)$.
+\end{itemize}
+\begin{enumerate}
+    \item
+    \begin{enumerate}
+        \item \includegraphics[width=0.4\linewidth]{P3Packages.png}
+        \item The biggest bin is (119.5-120, 4-4.33). This is very close to the expected (120,4).
+    \end{enumerate}
+    \item \includegraphics[width=0.4\linewidth]{P3PDF.png} It seems like S has a positive correlation with W.
+    \item It could be appropriate because the Gaussian Distribution is often generalizable to many different datasets.
+    However, the package size might be very distinct from a gaussian distribution, in which case the Gaussian is suboptimal.
+    For example, it could be possible that USPS only owns three box sizes: 8, 120, and 100,000,000.
+    If USPS used all three of these box sizes with the same frequency, a Guassian would probably be a bad choice.
+    \item 
+    \begin{align*}
+        \mathbb{E}(T) &= 60 + 0.6\mathbb{E}(W) + 0.2\mathbb{E}(s)+\mathbb{E}(\epsilon)\\
+        &= 60 + 0.6(4) + 0.2(120) + 0\\
+        \mathbb{E}(T) &= 86.4\\
+        \mathrm{Var}(T) &= 0.6^2\mathrm{Var}(W)+0.2^2\mathrm{Var}(S)+\mathrm{Var}(\epsilon)+2(0.6)(0.2)\mathrm{Cov}(W,S)\\
+        &= 0.6^2(1.5)+0.2^2(1.5)+5+2(0.6)(0.2)(1)\\
+        \mathrm{Var}(T) &= 5.84
+    \end{align*}
+    \item
+    \begin{enumerate}
+        \item See Supplementals
+        \item mean = 6224.04646366475, standard deviation = 724.7638716310158
+    \end{enumerate}
+\end{enumerate}
+\end{solution}
+
 \end{document}

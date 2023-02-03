@@ -39,13 +39,8 @@ def problem_three_one():
         s_, w_ = sample
         s.append(s_)
         w.append(w_)
-    print(w)
-    print(W)
     data = {"S":s, "W":w};
-    print(data)
     df = pandas.DataFrame(data=data)
-    print(df)
-    # print(sample)
     seaborn.histplot(df, x="S", y="W")
 
     # fig = plt.figure()
@@ -99,6 +94,7 @@ def problem_three_five():
 
 
 if __name__ == '__main__':
+    # problem_three_one()
     # problem_three_two()
     problem_three_five()
     
