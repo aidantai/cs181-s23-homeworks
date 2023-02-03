@@ -18,7 +18,7 @@
 }
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
-\ExecuteOptions{nosubmit}
+\ExecuteOptions{submit}
 \ProcessOptions\relax
 
 \LoadClass[10pt,letterpaper]{article}
@@ -65,9 +65,9 @@
   \end{minipage}
   \noindent\begin{minipage}{0.33\textwidth}
   \begin{flushright}
-  %\ifhmlset@submit
-  %  Collaborators: \hmlset@collaborators
-  %  \fi
+  \ifhmlset@submit
+   Collaborators: \hmlset@collaborators
+   \fi
   \end{flushright}
   \end{minipage}
   \vspace{0.1cm}
