@@ -116,10 +116,12 @@ In this class we will be exploring the question of ``how do we model the trend i
     \item We can construct a matrix from the two linear equations above:
     $\begin{pmatrix} y_1 \\ y_2 \end{pmatrix} 
     = \begin{pmatrix} w_0 + w_1x_1 \\ w_0+w_1x_2 \end{pmatrix}$\\
-    Through inspection, we can construct a simple model $y=Xw$:\\
+    Through inspection, we can construct a simple model $y=Xw$:
+    \begin{center}
     $y = \begin{pmatrix} y_1 \\ y_2 \end{pmatrix}$,
     $X = \begin{pmatrix} 1 & x_1 \\ 1 & x_2\end{pmatrix}$,
     $w = \begin{pmatrix} w_0 \\ w_1\end{pmatrix}$
+    \end{center}
     \item A unique solution exists when $X$ is linearly independent\\
     In other words, we need $x_1$ and $x_2$ to be different for a unique solution,
     otherwise there isn't enough data to solve for a linear regression
@@ -127,10 +129,13 @@ In this class we will be exploring the question of ``how do we model the trend i
     since y does not depend on x, there is a solution for any x.
 
     $w = X^{-1}y$
-    \item $X^{-1} = \frac{1}{x_2-x_1}\begin{pmatrix} x_2 & -x_1 \\ -1 & 1\end{pmatrix}$\\
-    $w = \frac{1}{x_2-x_1}\begin{pmatrix} x_2 & -x_1 \\ -1 & 1\end{pmatrix} \begin{pmatrix} y_1 \\ y_2\end{pmatrix}$\\
-    $w = \frac{1}{x_2-x_1}\begin{pmatrix} x_2y_1 & -x_1y_2 \\ -y_1 & y_2\end{pmatrix}$\\
-    $w = \begin{pmatrix} w_0 \\ w_1\end{pmatrix} = \begin{pmatrix} \frac{x_2y_1-x_1y_2}{x_2-x_1} \\ \frac{y_2-y_1}{x_2-x_1}\end{pmatrix}$
+    \item 
+    \begin{align*}
+    X^{-1} &= \frac{1}{x_2-x_1}\begin{pmatrix} x_2 & -x_1 \\ -1 & 1\end{pmatrix}\\
+    w &= \frac{1}{x_2-x_1}\begin{pmatrix} x_2 & -x_1 \\ -1 & 1\end{pmatrix} \begin{pmatrix} y_1 \\ y_2\end{pmatrix}\\
+    w &= \frac{1}{x_2-x_1}\begin{pmatrix} x_2y_1 & -x_1y_2 \\ -y_1 & y_2\end{pmatrix}\\
+    w &= \begin{pmatrix} w_0 \\ w_1\end{pmatrix} = \begin{pmatrix} \frac{x_2y_1-x_1y_2}{x_2-x_1} \\ \frac{y_2-y_1}{x_2-x_1}\end{pmatrix}
+    \end{align*}
 
     The main advantage of using matrix notation is its generalizability. For example,
     the matrix notation makes it quite easy to do Polynomial Regression.
