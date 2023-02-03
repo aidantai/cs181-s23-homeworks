@@ -20,6 +20,8 @@
 \usepackage{listings}
 \usepackage[shortlabels]{enumitem}
 \usepackage{hyperref}
+\usepackage{graphicx}
+\graphicspath{./images/}
 
 \theoremstyle{definition}
 \newtheorem{defn}{Definition}[section]
@@ -100,15 +102,45 @@ In this class we will be exploring the question of ``how do we model the trend i
 
 \noindent Let's consider a dataset consisting of two points $\mathcal{D} = \{(x_1, y_1), (x_2, y_2)\}$, where $x_n, y_n$ are scalars for $n=1, 2$. Recall that the equation of a line in 2-dimensions can be written: $y = w_0 + w_1x$. 
 \begin{enumerate}
-    \item Write a system of linear equations determining the coefficients $w_0, w_1$ of the line passing through the points in our dataset $\mathcal{D}$ and analytically solve for $w_0, w_1$ by solving this system of linear equations (i.e., using substitution). Please show your work.
-    \item Write the above system of linear equations in matrix notation, so that you have a matrix equation of the form $\mathbf{y} = \mathbf{X}\mathbf{w}$, where $\mathbf{y}, \mathbf{w} \in \mathbb{R}^2$ and $\mathbf{X} \in \mathbb{R}^{2\times 2}$. For full credit, it suffices to write out what $\mathbf{X}$, $\mathbf{y}$, and $\mathbf{w}$ should look like in terms of $x_1$, $x_2$, $y_1$, $y_2$, $w_0$, $w_1$, and any other necessary constants. Please show your reasoning and supporting intermediate steps.
-    \item Using properties of matrices, characterize exactly when an unique solution for  $\mathbf{w}=\left(w_0 \; w_1 \right)^{T}$ exists. In other words, what must be true about your dataset in order for there to be a unique solution for $\mathbf{w}$? When the solution for $\mathbf{w}$ exists (and is unique), write out, as a matrix expression, its analytical form (i.e., write $\mathbf{w}$ in terms of $\mathbf{X}$ and $\mathbf{y}$).
-    
-    Hint: What special property must our $\mathbf{X}$ matrix possess? What must be true about our data points in $\mathcal{D}$ for this special property to hold?
-    \item Compute $\mathbf{w}$ by hand via your matrix expression in (3) and compare it with your solution in (1). Do your final answers match? What is one advantage for phrasing the problem of fitting the model in terms of matrix notation? 
-    \item In real-life, we often work with datasets that consist of hundreds, if not millions, of points. In such cases, does our analytical expression for $\mathbf{w}$ that we derived in (3) apply immediately to the case when $\mathcal{D}$ consists of more than two points? Why or why not?
+    \item $y_1 = w_0+w_1x_1$, $y_2 = w_0+w_1x_2$, Substitution with $w_0 = y_1-w_1x_1$
+    \begin{align*}
+        y_2 &= y_1-w_1x_1+w_1x_2\\
+        y_2-y_1 &= w_1(-x_1+x_2)\\
+        w_1 &= \frac{y_2-y_1}{x_2-x_1}\\
+    \end{align*}
+    Substitute $w_1$ in $w_0 = y_1-w_1x_1$
+    \begin{align*}
+        w_0 &= y_1 - \frac{y_2-y_1}{x_2-x_1}x_1\\
+        w_0 &= \frac{x_2y_1-x_1y_1-x_1y_2+x_1y_1}{x_2-x_1}\\
+        w_0 &= \frac{x_2y_1-x_1y_2}{x_2-x_1}\\
+    \end{align*}
+    \item We can construct a matrix from the two linear equations above:
+    $\begin{pmatrix} y_1 \\ y_2 \end{pmatrix} 
+    = \begin{pmatrix} w_0 + w_1x_1 \\ w_0+w_1x_2 \end{pmatrix}$\\
+    Through inspection, we can construct a simple model $y=Xw$:\\
+    $y = \begin{pmatrix} y_1 \\ y_2 \end{pmatrix}$,
+    $X = \begin{pmatrix} 1 & x_1 \\ 1 & x_2\end{pmatrix}$,
+    $w = \begin{pmatrix} w_0 \\ w_1\end{pmatrix}$
+    \item A unique solution exists when $X$ is linearly independent\\
+    In other words, we need $x_1$ and $x_2$ to be different for a unique solution,
+    otherwise there isn't enough data to solve for a linear regression
+    If $y_1$ and $y_2$ are the same, then there are infinite solutions: 
+    since y does not depend on x, there is a solution for any x.
+
+    $w = X^{-1}y$
+    \item $X^{-1} = \frac{1}{x_2-x_1}\begin{pmatrix} x_2 & -x_1 \\ -1 & 1\end{pmatrix}$\\
+    $w = \frac{1}{x_2-x_1}\begin{pmatrix} x_2 & -x_1 \\ -1 & 1\end{pmatrix} \begin{pmatrix} y_1 \\ y_2\end{pmatrix}$\\
+    $w = \frac{1}{x_2-x_1}\begin{pmatrix} x_2y_1 & -x_1y_2 \\ -y_1 & y_2\end{pmatrix}$\\
+    $w = \begin{pmatrix} w_0 \\ w_1\end{pmatrix} = \begin{pmatrix} \frac{x_2y_1-x_1y_2}{x_2-x_1} \\ \frac{y_2-y_1}{x_2-x_1}\end{pmatrix}$
+
+    The main advantage of using matrix notation is its generalizability. For example,
+    the matrix notation makes it quite easy to do Polynomial Regression.
+    \item No. This mode only works if the points make up a consistent regression.
+    That is, there needs to be a unique solution given the data. If we have (1,1), (2,2), and (3,4),
+    then there is no solution and thus the model cannot solve for a linear regression.
+
+
 \end{enumerate}
-        
 \end{solution}
 
 \begin{problem}[Optimizing Objectives - Calculus Review]
@@ -137,6 +169,41 @@ $$y = f(x_1, x_2) = \exp\left(-(x_1 - 2)^2 - (x_2 - 1)^2 \right)$$
 \end{enumerate}
 
 \end{problem}
+
+\begin{solution}[Optimizing Objectives Solution]
+
+\noindent In her most recent work-from-home shopping spree, Nari decided to buy several house plants. \textit{Her goal is to make them to grow as tall as possible.} After perusing the internet, Nari learns that the height $y$ in mm of her Weeping Fig plant can be directly modeled as a function of the oz of water $x$ she gives it each week:
+$$y = - 3x^2 + 72x + 70.$$
+\begin{enumerate}
+    \item The plant has a maximum height because the graph is concave down.
+    We know this because the second derivative is negative at all x.
+    This fact also tells us that there is one unique solution.
+    \item Find the first and second derivative:
+    \begin{align*}
+        y &= - 3x^2 + 72x + 70\\
+        y' &= -6x + 72\\
+        y'' &= -6
+        \intertext{Solve for the point of inflection: }
+        0 &= y'\\
+        0 &= -6x + 72\\
+        x &= 12\\
+        y(12) &= 502
+    \end{align*}
+    Since the graph is concave down, the inflection point with the first derivative is the global maximum.
+    Therefore, the tallest possible height for the plant is 502mm with 12oz water.
+\end{enumerate} 
+Now suppose that Nari want to optimize both the amount of water $x_1$ (in oz) \textit{and} the amount of direct sunlight $x_2$ (in hours) to provide for her plants. After extensive research, she decided that the height $y$ (in mm) of her plants can be modeled as a two variable function:
+
+$$y = f(x_1, x_2) = \exp\left(-(x_1 - 2)^2 - (x_2 - 1)^2 \right)$$
+\begin{enumerate}
+    \setcounter{enumi}{2}
+    \item Left: height-water graph, Right: height-water,sunlight surface\\
+    The visualization on the right clearly shows a unique maximum in the domain space.\\
+    \includegraphics[width=0.45\linewidth]{P2Plant.png}
+    \includegraphics[width=0.45\linewidth]{P2Sunlight.png}
+
+\end{enumerate}
+\end{solution}
 
 \begin{problem}[Reasoning about Randomness - Probability and Statistics Review]
 In this class, one of our main focuses is to model the unexpected variations in real-life phenomena using the formalism of random variables. In this problem, we will use random variables to model how much time it takes an USPS package processing system to process packages that arrive in a day.\\
