@@ -18,7 +18,7 @@
 }
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
-\ExecuteOptions{submit}
+\ExecuteOptions{nosubmit}
 \ProcessOptions\relax
 
 \LoadClass[10pt,letterpaper]{article}
