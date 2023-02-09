@@ -370,16 +370,41 @@ This question is a conceptual question, and you are not required to implement th
 
 \end{problem}
 
+\begin{solution}[Optimizing a Kernel]
+
+\noindent
+\begin{equation*}
+  f_\tau(x^*) = \cfrac{\sum_{n} K_\tau(x_n,x^*) y_n}{\sum_n K_\tau(x_n, x^*)}, K_\tau(x,x') = \exp\left\{-\frac{(x-x')^2}{\tau}\right\}
+\end{equation*}
+\begin{center}
+  \includegraphics[width=0.5\linewidth]{Problem 1.png}
+\end{center}
+
+\begin{enumerate}
+  \item 
+  The first and third graphs are overfit and underfit respectively.
+  The second graph is a better middle ground that makes good use of kernel regression's benefits,
+  so I would probably use tau=50 for predictions.
+  \item The MSE is minimized when tau is minimized, but this leads to overfitting. As tau approaches 0,
+  the kernel function approaches $e^{-\infty}$, which is zero, meaning that we can effectively force the MSE to zero
+  by minimizing tau, which severely overfits the MSE.
+  \item 
+\end{enumerate}
+
+\end{solution}
+
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Name and Calibration
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Name}
+Aidan Tai
 
 \subsection*{Collaborators and Resources}
 Whom did you work with, and did you use any resources beyond cs181-textbook and your notes?
 
 \subsection*{Calibration}
 Approximately how long did this homework take you to complete (in hours)? 
+2
 
 \end{document}
