@@ -167,10 +167,47 @@ What is the time complexity of your implementation, when computing your model on
 
 \newpage
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Solution 1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{solution}[Optimizing a Kernel]
+
+\noindent
+% \begin{equation*}
+%   f_\tau(x^*) = \cfrac{\sum_{n} K_\tau(x_n,x^*) y_n}{\sum_n K_\tau(x_n, x^*)}, K_\tau(x,x') = \exp\left\{-\frac{(x-x')^2}{\tau}\right\}
+% \end{equation*}
+\begin{center}
+  \includegraphics[width=0.5\linewidth]{Problem 1.png}
+\end{center}
+
+\begin{enumerate}
+  \item 
+  The first and third graphs are overfit and underfit respectively.
+  $\tau = 1$ is too biased (technically, bias is too low) toward the training data, so test predictions may be
+  unnecessarily inaccurate due to the model overfitting to a unique quality of
+  the training data that differs from future test data/the true data.
+  Meanwhile, $\tau = 2500$ has been significantly underfit such that 
+  the "spiky" pattern in the training data is hardly represented by the model.
+  In this case, the variance is over optimized to the point where excessive bias
+  plagues the model.
+  Based on intuition, it seems that the second graph is a better middle ground in terms of
+  balancing bias and variance, so I would probably use tau=50 for predictions. 
+
+  \item The MSE is minimized when tau is minimized, but this leads to overfitting. As tau approaches 0,
+  the kernel function approaches $e^{-\infty}$, which is zero, meaning that we can effectively force the MSE to zero
+  by minimizing tau, which severely overfits the MSE.
+  \item 
+\end{enumerate}
+
+\end{solution}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Problem 2
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newpage
 \begin{problem}[Kernels and kNN]
 
 Now, let us compare the kernel-based approach to an approach based on
@@ -213,6 +250,54 @@ What is the time complexity of your implementation, when computing your model on
 \end{enumerate}
 
 \end{problem}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Solution 2
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\begin{solution}[Kernels and kNN]
+
+Now, let us compare the kernel-based approach to an approach based on
+nearest-neighbors.  Recall that kNN uses a predictor of the form
+  \begin{equation*}
+    f(x^*) = \frac{1}{k} \sum_n y_n \mathbb{I}(x_n \texttt{ is one of k-closest to } x^*)
+  \end{equation*}
+
+\noindent where $\mathbb{I}$ is an indicator variable. For this problem, you will use the \textbf{same dataset as in Problem 1}.
+
+
+%\textbf{For this problem, you may also use the second half of the notebook at {\color{red} update name} \texttt{T1\_P1-2.ipynb}.} 
+
+\textbf{Note that our set of test cases is not comprehensive: just because you pass does not mean your solution is correct! We strongly encourage you to write your own test cases and read more about ours in the comments of the Python script.}
+
+\vspace{0.5cm}
+\noindent\emph{Make sure to include all required plots in your PDF.}
+
+
+\begin{enumerate}
+
+\item Implement kNN for $k=\{1, 3, N-1\}$ where $N$ is the size of the dataset, then plot the results for each $k$. To find the distance between points, use the kernel function from Problem 1 with lengthscale $\tau=2500$. 
+
+You will plot $x^*$ on the year-axis and the prediction $f(x^*)$ on the temperature-axis.  For the test inputs $x^*$, you should use an even grid spacing of $1$ between $x^* = 800$ and $x^* = 400$.  (Like in Problem 1, if a test point lies on top of a training input, use the formula without excluding that training input.) Again, this has been set up for you already.
+
+Please \textbf{write your own
+    implementation of kNN} for full credit.  Do not use external
+  libraries to find nearest neighbors.
+  
+\item Describe what you see: what is the behavior of the functions in
+  these three plots?  How does it compare to the behavior of the
+  functions in the three plots from Problem 1? In particular, which of the plots from Problem 1 look most similar to each in Problem 2? Are there situations
+  in which kNN and kernel-based regression interpolate similarly?
+
+\item Choose the kNN model you most prefer among the three. Which model did you choose and why? What is its mean squared error on the test set?
+
+\item As before, say you wanted to send your friend your kNN, so that they can reproduce the same exact predictions as you. You will again tell them the value of the $k$ you selected, but what other information would they need, assuming they do not currently have any of your data or code, and how does this information grow as a function of the size of the training set, $N$? Again worded more formally, what is the space complexity of storing your model?
+
+What is the time complexity of your implementation, when computing your model on a new datapoint? Give a brief overview of your implementation when you justify your answers. 
+\end{enumerate}
+
+\end{solution}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Problem 3
@@ -370,29 +455,6 @@ This question is a conceptual question, and you are not required to implement th
 
 \end{problem}
 
-\begin{solution}[Optimizing a Kernel]
-
-\noindent
-\begin{equation*}
-  f_\tau(x^*) = \cfrac{\sum_{n} K_\tau(x_n,x^*) y_n}{\sum_n K_\tau(x_n, x^*)}, K_\tau(x,x') = \exp\left\{-\frac{(x-x')^2}{\tau}\right\}
-\end{equation*}
-\begin{center}
-  \includegraphics[width=0.5\linewidth]{Problem 1.png}
-\end{center}
-
-\begin{enumerate}
-  \item 
-  The first and third graphs are overfit and underfit respectively.
-  The second graph is a better middle ground that makes good use of kernel regression's benefits,
-  so I would probably use tau=50 for predictions.
-  \item The MSE is minimized when tau is minimized, but this leads to overfitting. As tau approaches 0,
-  the kernel function approaches $e^{-\infty}$, which is zero, meaning that we can effectively force the MSE to zero
-  by minimizing tau, which severely overfits the MSE.
-  \item 
-\end{enumerate}
-
-\end{solution}
-
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Name and Calibration
@@ -401,10 +463,9 @@ This question is a conceptual question, and you are not required to implement th
 Aidan Tai
 
 \subsection*{Collaborators and Resources}
-Whom did you work with, and did you use any resources beyond cs181-textbook and your notes?
+None
 
 \subsection*{Calibration}
-Approximately how long did this homework take you to complete (in hours)? 
-2
+2 hours
 
 \end{document}
