@@ -431,7 +431,6 @@ MSE can no longer be directly compared.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Solution 3
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
 \begin{solution}
 
 \noindent 
@@ -440,18 +439,35 @@ MSE can no longer be directly compared.
 \end{center}
 \begin{enumerate}
   \item (see graph above)
-  \item s
+  \item (see notes), $w^{MLE} = (X^TX)^{-1}X^Ty$
     \begin{enumerate}
       \item Train MSE: 4.83; Test MSE: 7.96\\
-      wMLE = smth
-      This basis underfits
+      Train NLL: 762.399; Test NLL: 523.304\\
+      This basis hardly captures the trend in the data and has
+      poor metrics. We can probably do better.
       \item Train MSE: 4.22; Test MSE: 7.76\\
+      Train NLL: 601.027; Test NLL: 450.117\\
+      Though this basis has better metrics, its only slightly better.
+      The model could probably be improved (more complexity) to achieve
+      better accuracy at the cost of good variance.
       \item Train MSE: 2.88; Test MSE: 5.97\\
+      Train NLL: 318.767; Test NLL: 250.941\\
+      This basis looks good! The train and test metrics
+      are pretty similar, so we know that, the model is not overfitting the
+      training data. Additionally, the MSE values are decent, so 
+      the mode is probably complex enough to fit well.
+      Visually, graph appears to fit the trend of the data fairly well.
       \item Train MSE: 0.64; Test MSE: 58.91\\
-      This basis severely overfits. The Train MSE is extremely small, 
-      but the Test MSE is ridiculously high. Looking at the graph, we can see that 
+      Train NLL: 51.594; Test NLL: 491.076\\
+      This basis severely overfits. The Train metrics are extremely small, 
+      but the Test metrics are ridiculously high. Looking at the graph, we can see that 
       the model has crazy waves but they line up on the training data very well.
     \end{enumerate}
+    \item I would just need to share the weight vector with dimension D,
+    so the space complexity is just $O(D)$. The time complexity is
+    also $O(k)$ because we are just multiplying once for each weight vector.
+    These complexities are significantly better than kNN or kernelized regression.
+    (unless the number of features is greater than $O(n)$ or $O(n\log(n))$
 \end{enumerate}
 \end{solution}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -488,23 +504,40 @@ This question is a conceptual question, and you are not required to implement th
 % Solution 4
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-\begin{solution}
+\begin{solution}[Impact]
 
   \noindent 
   \begin{enumerate}
     \item My target variable would be total US energy consumption per capita per year
     (measured in gigajoules, so gj/capita measured across years)
-    \item I would analyze how each sector in the
+    \item There are a lot of options for choosing features, depending on
+    what data is available. I would analyze how each sector in the
     US economy contributes to energy consumption (Industrial, Commercial, Residential, Transportation sectors).
     Therefore, I would look at driving factors behind these sectors, such as
     overall growth/cash flow of each sector (perhaps the Transportation sector dipped during
     2020-2021 and thus had reduced contribution to energy consumption), the profits of
     each sector (a sector might be smaller but earn more profit, thus growing at a higher rate – 
     new rising companies that consume a significant amount of energy would be relevant),
-    the subsidies/taxes/regulations on sectors/companies in each sector (this may be hard to measure, but 
-    if data is available to approximate the net profit lost (in dolalrs) from taxes 
-    or regulation, then we could determine how government regulation can influence
-    a sector's energy consumption), 
+    or the subsidies/taxes/regulations on sectors/companies in each sector (this may be hard to measure, but 
+    if data is available to numerically represent overall "regulation" on a sector, then we could determine 
+    how government regulation can influence a sector's energy consumption). This would make 12 features (3 for each sector).
+    \item The dataset would focus on recent decades because going further back
+    only brings data that is not representative of current circumstances.
+    \item I would use linear regression to predict energy usage (a coefficient for each feature) and assess
+    its performance on a loss function that minimizes the MSE. The coefficients would
+    reveal what impact each feature has on the total US energy consumption (thanks
+    to the high interpretability of this linear regression)
+    \item If the model shows that applying taxes/regulation specifically upon the Industrial
+    sector has a significant impact on US energy consumption (relative to other features), 
+    then the US president could consider increasing regulation on
+    this sector. 
+    \item The US president might be a skeptic of machine learning or might not
+    trust it because he doesn't understand it. If he does have a good understanding,
+    he might not trust the model if it has very high uncertainty and bad metrics.
+    \item If the model is wrong, the US president might make a poorly-informed 
+    policy decision. For example, he might greatly restrict a sector by imposing 
+    new regulation when it turns out that this regulation hardly improves 
+    US energy consumption. 
   \end{enumerate}
 \end{solution}
 
@@ -519,6 +552,6 @@ Aidan Tai
 None
 
 \subsection*{Calibration}
-7 hours
+9 hours
 
 \end{document}
