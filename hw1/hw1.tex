@@ -281,12 +281,22 @@ What is the time complexity of your implementation, when computing your model on
   \item $k=1$ and $k=3$ both appear reasonable, while $k=N-1$ fails
   to capture the trends of the data. The kernelized regression graphs
   look smoother than the knn graphs, but overall ($\tau=1, k=1$) and ($\tau=50, k=3$)
-  are very similar.
+  are very similar. Meanwhile, $k=N-1$ looks very different from $\tau=2500$,
+  though they both "flatten" the graph too much.
   \item Similar to problem 1, the middle graph appears to be the best
   because it offers a balance between the two other graphs (though k=N-1 can
   hardly be considered relevant). The bias-variance tradeoff is preferable in
-  k=3 because visually speaking, k=1 is potentially overfit.
-  \item 
+  $k=3$ because $k=1$ is a very low parameter that likely overfits the training data.
+  The MSE for $k=3$ is 3.89, which is worse than the MSE for $k=1$ (1.74).
+  However, the MSE is not the only metric available for evaluating a model.
+  $k=3$ sacrifices some MSE-accuracy for better generalizability.
+  \item Once again, we are iterating through all of the points in
+  the data set to calculate the nearest neighbors. Therefore, we need
+  to store all of the data points, which has space complexity $O(n)$. However, in our implementation,
+  we had to sort the data points in order to calculate the nearest neighbors.
+  The sorting algorithm used has a time complexity of $O(n\log(n))$, and this is
+  the slowest part of the model, so the overall time complexity is $O(n\log(n))$ for
+  a single point.
 
 \end{enumerate}
 
@@ -423,7 +433,26 @@ MSE can no longer be directly compared.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \begin{solution}
-  Answer
+
+\noindent 
+\begin{center}
+  \includegraphics[width=0.9\linewidth]{Problem3.png}
+\end{center}
+\begin{enumerate}
+  \item (see graph above)
+  \item s
+    \begin{enumerate}
+      \item Train MSE: 4.83; Test MSE: 7.96\\
+      wMLE = smth
+      This basis underfits
+      \item Train MSE: 4.22; Test MSE: 7.76\\
+      \item Train MSE: 2.88; Test MSE: 5.97\\
+      \item Train MSE: 0.64; Test MSE: 58.91\\
+      This basis severely overfits. The Train MSE is extremely small, 
+      but the Test MSE is ridiculously high. Looking at the graph, we can see that 
+      the model has crazy waves but they line up on the training data very well.
+    \end{enumerate}
+\end{enumerate}
 \end{solution}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Problem 4
