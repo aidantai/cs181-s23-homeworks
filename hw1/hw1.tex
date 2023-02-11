@@ -178,7 +178,7 @@ What is the time complexity of your implementation, when computing your model on
 %   f_\tau(x^*) = \cfrac{\sum_{n} K_\tau(x_n,x^*) y_n}{\sum_n K_\tau(x_n, x^*)}, K_\tau(x,x') = \exp\left\{-\frac{(x-x')^2}{\tau}\right\}
 % \end{equation*}
 \begin{center}
-  \includegraphics[width=0.5\linewidth]{Problem 1.png}
+  \includegraphics[width=0.5\linewidth]{Problem1.png}
 \end{center}
 
 \begin{enumerate}
@@ -195,9 +195,22 @@ What is the time complexity of your implementation, when computing your model on
   balancing bias and variance, so I would probably use tau=50 for predictions. 
 
   \item The MSE is minimized when tau is minimized, but this leads to overfitting. As tau approaches 0,
-  the kernel function approaches $e^{-\infty}$, which is zero, meaning that we can effectively force the MSE to zero
+  the kernel function approaches $e^{-\infty}$ (approaches zero), meaning that we can effectively force the MSE to zero
   by minimizing tau, which severely overfits the MSE.
-  \item 
+  \item
+  \begin{align*}
+    MSE &= \frac{1}{M}\Sigma_{m=1}^{M}(f_{\tau}(x_{m}')-y_{m}')^2\\
+    &= \frac{1}{M}\Sigma_{m=1}^{M}(\frac{\Sigma_{n}K_{\tau}(x_n,x_{m}')y_n}{\Sigma_{n}K_{\tau}(x_n,x_{m}')}-y_{m}')^2
+  \end{align*}
+  \item (see code)\\
+  $\tau=50$ yields the lowest test set MSE (1.858), which is consistent with
+  my observations in Part 1 (it has a slight edge over $\tau=1$ because it's less
+  overfit)
+  \item I would have to send the dataset because the function iterates
+  over every data point, so the space complexity is $O(n)$. Calculating
+  a single point has time complexity $O(n)$ because you have to iterate through
+  each point to calculate the sum (bottom term) and also multiply $y_n$ to each
+  in the process (top term), but you can do both of these calculations together, so O(n).
 \end{enumerate}
 
 \end{solution}
@@ -258,43 +271,23 @@ What is the time complexity of your implementation, when computing your model on
 \newpage
 \begin{solution}[Kernels and kNN]
 
-Now, let us compare the kernel-based approach to an approach based on
-nearest-neighbors.  Recall that kNN uses a predictor of the form
-  \begin{equation*}
-    f(x^*) = \frac{1}{k} \sum_n y_n \mathbb{I}(x_n \texttt{ is one of k-closest to } x^*)
-  \end{equation*}
-
-\noindent where $\mathbb{I}$ is an indicator variable. For this problem, you will use the \textbf{same dataset as in Problem 1}.
-
-
-%\textbf{For this problem, you may also use the second half of the notebook at {\color{red} update name} \texttt{T1\_P1-2.ipynb}.} 
-
-\textbf{Note that our set of test cases is not comprehensive: just because you pass does not mean your solution is correct! We strongly encourage you to write your own test cases and read more about ours in the comments of the Python script.}
-
-\vspace{0.5cm}
-\noindent\emph{Make sure to include all required plots in your PDF.}
-
+\noindent
+\begin{center}
+  \includegraphics[width=0.5\linewidth]{Problem2.png}
+\end{center}
 
 \begin{enumerate}
+  \item (see code)
+  \item $k=1$ and $k=3$ both appear reasonable, while $k=N-1$ fails
+  to capture the trends of the data. The kernelized regression graphs
+  look smoother than the knn graphs, but overall ($\tau=1, k=1$) and ($\tau=50, k=3$)
+  are very similar.
+  \item Similar to problem 1, the middle graph appears to be the best
+  because it offers a balance between the two other graphs (though k=N-1 can
+  hardly be considered relevant). The bias-variance tradeoff is preferable in
+  k=3 because visually speaking, k=1 is potentially overfit.
+  \item 
 
-\item Implement kNN for $k=\{1, 3, N-1\}$ where $N$ is the size of the dataset, then plot the results for each $k$. To find the distance between points, use the kernel function from Problem 1 with lengthscale $\tau=2500$. 
-
-You will plot $x^*$ on the year-axis and the prediction $f(x^*)$ on the temperature-axis.  For the test inputs $x^*$, you should use an even grid spacing of $1$ between $x^* = 800$ and $x^* = 400$.  (Like in Problem 1, if a test point lies on top of a training input, use the formula without excluding that training input.) Again, this has been set up for you already.
-
-Please \textbf{write your own
-    implementation of kNN} for full credit.  Do not use external
-  libraries to find nearest neighbors.
-  
-\item Describe what you see: what is the behavior of the functions in
-  these three plots?  How does it compare to the behavior of the
-  functions in the three plots from Problem 1? In particular, which of the plots from Problem 1 look most similar to each in Problem 2? Are there situations
-  in which kNN and kernel-based regression interpolate similarly?
-
-\item Choose the kNN model you most prefer among the three. Which model did you choose and why? What is its mean squared error on the test set?
-
-\item As before, say you wanted to send your friend your kNN, so that they can reproduce the same exact predictions as you. You will again tell them the value of the $k$ you selected, but what other information would they need, assuming they do not currently have any of your data or code, and how does this information grow as a function of the size of the training set, $N$? Again worded more formally, what is the space complexity of storing your model?
-
-What is the time complexity of your implementation, when computing your model on a new datapoint? Give a brief overview of your implementation when you justify your answers. 
 \end{enumerate}
 
 \end{solution}
@@ -424,6 +417,14 @@ of the target $\mathbf{y}$ to be different; in these cases the
 MSE can no longer be directly compared.
 
 \end{framed}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Solution 3
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\begin{solution}
+  Answer
+\end{solution}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Problem 4
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -454,6 +455,29 @@ This question is a conceptual question, and you are not required to implement th
 \end{enumerate}
 
 \end{problem}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Solution 4
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\begin{solution}
+
+  \noindent 
+  \begin{enumerate}
+    \item My target variable would be total US energy consumption per capita per year
+    (measured in gigajoules, so gj/capita measured across years)
+    \item I would analyze how each sector in the
+    US economy contributes to energy consumption (Industrial, Commercial, Residential, Transportation sectors).
+    Therefore, I would look at driving factors behind these sectors, such as
+    overall growth/cash flow of each sector (perhaps the Transportation sector dipped during
+    2020-2021 and thus had reduced contribution to energy consumption), the profits of
+    each sector (a sector might be smaller but earn more profit, thus growing at a higher rate – 
+    new rising companies that consume a significant amount of energy would be relevant),
+    the subsidies/taxes/regulations on sectors/companies in each sector (this may be hard to measure, but 
+    if data is available to approximate the net profit lost (in dolalrs) from taxes 
+    or regulation, then we could determine how government regulation can influence
+    a sector's energy consumption), 
+  \end{enumerate}
+\end{solution}
 
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
