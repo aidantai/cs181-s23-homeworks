@@ -152,7 +152,7 @@
 %\setlength{\parskip}{1ex}
 \filbreak 
 \needspace{3\baselineskip}
-{\begin{center}\varhrulefill \bf #1 \;Solution  \varhrulefill\end{center}}{}
+{\begin{center}\varhrulefill \bf #1 \;Solution #2 \varhrulefill\end{center}}{}
 }{%
 \par{\begin{center}\varhrulefill \bf \;End Solution  \varhrulefill\end{center}}{}
 \needspace{-3\baselineskip}
@@ -161,8 +161,8 @@
 %   \end{center}
 }
 
-\newenvironment{sol}{%
-   \begin{solunnumbered}{}{}
+\newenvironment{sol}[2]{%
+   \begin{solunnumbered}{#1}{#2}
 }{%
    \end{solunnumbered}
 }
