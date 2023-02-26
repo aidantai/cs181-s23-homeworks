@@ -317,9 +317,47 @@ Since testing on a larger patient population is expensive for various reasons, t
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{sol}{}{1}
   \begin{enumerate}
-    \item See notebook
+    \item See code
     \item 
+    \includegraphics[width=0.33\linewidth]{basis1.png}
+    \includegraphics[width=0.33\linewidth]{basis2.png}
+    \includegraphics[width=0.33\linewidth]{basis3.png}
+    Basis1 has a very straight underfit curve that does
+    not predict the training data very well, with a 
+    relatively good variance (low variance)
+    at the cost of a problematic bias (high bias). Meanwhile,
+    basis3 has the opposite problem: the model is highly overfit
+    to the training data with a very low bias
+    at the cost of a high variance and poor generalizability.
+    Basis2 is much better than the other two, balancing bias
+    and variance to best represent the model. Basis3 has a significant
+    difference between each iteration of gradient descent--however,
+    the mean of these iterations actually gets reasonably close to
+    the ground truth model. Meanwhile, the iterations of basis1
+    are very similar because of the simplicity of the basis restricts
+    its variance.
+    \item The total variance would decrease because model variance
+    is dependent on the variance of the training data. Theoretically,
+    adding more training data to the model would allow it to
+    generalize the trend of the data better, which would involve
+    a reduction in the model's variance error because more data means
+    less uncertainty about predictions. Increasing training data should not have a significant impact
+    on the bias because the bias is not directly dependent on the variance
+    of the training set, but rather how well the model can capture
+    the ground truth trend. While the certainty in the prediction
+    can improve from more data, improvement in the true accuracy 
+    of the prediction is not guaranteed.
+
   \end{enumerate}
+
+  \includegraphics[angle=270,width=0.4\linewidth]{images/Problem1.JPG}
+\end{sol}
+
+\newpage
+
+\begin{sol}{}{2}
+  \includegraphics[angle=270,width=0.7\linewidth]{images/Problem2.JPG}\\
+  \includegraphics[angle=270,width=0.7\linewidth]{images/Problem22.JPG}
 
 \end{sol}
 
@@ -331,10 +369,10 @@ Since testing on a larger patient population is expensive for various reasons, t
 Aidan Tai
 
 \subsection*{Collaborators and Resources}
-No collaborators, used section and office hours
+None
 
 \subsection*{Calibration}
-0
+10
 
 
 
