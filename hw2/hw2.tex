@@ -310,11 +310,11 @@ Since testing on a larger patient population is expensive for various reasons, t
 \end{enumerate}
 \end{framed}
 
-\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Solution 2
+% Solution 1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \begin{sol}{}{1}
   \begin{enumerate}
     \item See code
@@ -347,18 +347,54 @@ Since testing on a larger patient population is expensive for various reasons, t
     the ground truth trend. While the certainty in the prediction
     can improve from more data, improvement in the true accuracy 
     of the prediction is not guaranteed.
+    \item The basis3 first model's prediction for $t = 0.1$ is $0.51992796$. Since
+    the value is very close to $50\%$, it could be interpreted as
+    having a low confidence/high uncertainty in how to classify this point.
+    The variance across the 10 models for this point is var: $0.003429945554968907$.
+    This low variance indicates that the model has a high confidence/low uncertainty
+    about this $50\%$ prediction. In other words, the model is highly confident
+    that it is uncertain about whether to classify the point as a 0 or a 1.
+    The first uncertainty comes from variance in the data , while
+    the second uncertainty (or rather, certainty) comes from low variance in the model.
+    For the point $t = 3.2$, the first group of models have a very "strong"
+    prediction near $0\%$. This indicates the first type of "certainty", in that
+    the prediction is extremely confident in its prediction. 
+    However, the latter models suddenly start predicting close to $100\%$,
+    showing the same extreme confidence, but now for the opposite classification.
+    This creates a very high variance across the 10 models ($var: 0.2499555618600618$)
+    which comes from high variance in the model (this is because it is overfit/overtuned for bias)
 
   \end{enumerate}
 
   \includegraphics[angle=270,width=0.4\linewidth]{images/Problem1.JPG}
 \end{sol}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Solution 2
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-
 \begin{sol}{}{2}
-  \includegraphics[angle=270,width=0.7\linewidth]{images/Problem2.JPG}\\
-  \includegraphics[angle=270,width=0.7\linewidth]{images/Problem22.JPG}
 
+
+\end{sol}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Solution 3
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\begin{sol}{}{3}
+
+\end{sol}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Solution 4
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\begin{sol}{}{4}
+  \begin{enumerate}
+    \item 
+  \end{enumerate}
 \end{sol}
 
 \newpage
@@ -372,7 +408,7 @@ Aidan Tai
 None
 
 \subsection*{Calibration}
-10
+14
 
 
 
