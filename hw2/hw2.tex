@@ -367,7 +367,7 @@ Since testing on a larger patient population is expensive for various reasons, t
 
   \includegraphics[angle=270,width=0.1\linewidth]{images/Problem_1.JPG}
   
-  Problem 1 notes (unimportant) can be found in supplementals
+  Problem 1 notes above (unimportant) can also be found in supplementals
 \end{sol}
 
 
@@ -456,8 +456,10 @@ Since testing on a larger patient population is expensive for various reasons, t
     in extrapolation, but we should also pay close attention to how this sense of "extrapolation"
     depends on the basis. In this case, observations with negative temperatures may have unstable 
     or unreliable predictions despite being "close" to the training set.
-
   \end{enumerate}
+  \includegraphics[angle=270,width=0.5\linewidth]{images/Problem_3_1.JPG}
+
+  Problem 3 notes above (unimportant) can also be found in supplementals
 \end{sol}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -466,7 +468,65 @@ Since testing on a larger patient population is expensive for various reasons, t
 \newpage
 \begin{sol}{}{4}
   \begin{enumerate}
-    \item 
+    \item Let this patient be $x$.
+    \begin{align*}
+      p(y = 1|x_1 = 0) &= \sigma(0.2 + 0.8*0 - 0.012*50+0.45*0+0.001*168-0.007*140)\\
+      p(y = 1|x_1 = 0) &= 0.229347\\
+      p(y = 1|x_1 = 1) &= \sigma(0.2 + 0.8*1 - 0.012*50+0.45*0+0.001*168-0.007*140)\\
+      p(y = 1|x_1 = 1) &= 0.398433\\
+      p(y = 1|x_1 = 1) &- p(y = 1|x_6 = 0) = 0.169086
+    \end{align*}
+    The change is 0.169086, which can be interpreted as "Administering the drug to this patient
+    increases the probability of being cured by $16.9086\%$. However, we need to consider
+    many more factors (such as certainty) to know if this measurement is significant.
+  \item s
+  \begin{enumerate}
+    \item Adding more interaction terms increased the complexity of the model which
+    allowed it to better capture the trend in the data. If the model was underfit, then
+    incorporating these interaction terms porbably allowed it to fit better, which improved accuracy
+    and reduced both bias and variance!
+    \item Now, the model has become too complex, and it is beginning to overfit.
+    As the complexity of the model increases to the point where it overfits,
+    the variance increases very quickly. This comes with the benefit of low bias,
+    but bootstrapping reveals that the model now has poor predictive intervals as
+    a consequence of this overfit variance. To ameloriate this problem, we can
+    try various regularization methods (lasso, ridge), ensembling, or boosting.
+    \item I would recommend model B even if C ends up having a better predictive interval
+    after regularization because model B is easily interpretable. The company wants this model
+    to show how effective the drug is, and an uninterpretable model makes the measurement
+    less trustworthy. Additionally, an interpretable model makes it easier to
+    diagnose mistakes/problems with how the model was generated, which is an extremely 
+    important ethical concern, especially regarding the FDA approval of a drug. 
+  \end{enumerate}
+  \item test
+  \begin{enumerate}
+    \item In my opinion, this confidence interval is ridiculously large, meaning that there is
+    a significant amount of uncertainty about the drug's impact on the prediction of
+    the probability of being cured. Even if the model does a good job predicting whether
+    or not people will be cured, very high uncertainty for the drug variable
+    renders the model useless in making statistically significant conclusions about
+    the drug variable. I think it would still be a difficult decision to make, so I would
+    not directly recommend or discourage taking the drug, but rather explain this uncertainty
+    so that they can make an informed decision.
+    \item The company can try and tinker with the bias-variance tradeoff to minimize the
+    uncertainty/variance of the coefficient at the cost of overall predictive accuracy.
+    The company can also consider regularization and sampling methods to reduce the overall uncertainty,
+    and modify the model such that the drug variable is more important in the prediction.
+    \item It is more costly to run the trial if $w_1 = 1$ because the confidence interval
+    is relatively greater than in the case for $w_1 = 5$, in which drug effectiveness is more
+    convincing.
+    \item We definitely shouldn't fix the parameter to 5 or 1, but we can use Bayesian
+    models to incorporate the domain knowledge into the model in order to balance out our
+    prior expectations and the model's calculations.
+  \end{enumerate}
+  \item I would trust the second model more, because the first model has volunteer sampling bias
+  while the second model does not. One potential confounding variable is that patients
+  were able to reasonably evaluate whether or not the drug would be particularly helpful in
+  curing their disease based on the information in the advertisement, such that those
+  who volunteered were more likely to be cured. However, there are many possible confounding
+  variables that can arise from volunteer bias, like placebo effect (those who volunteer are
+  more confident it will work) or drug interactions (a patient may be on a necessary medication
+  that is known to negate the effects of this drug, so they opt out).
   \end{enumerate}
 \end{sol}
 
@@ -478,10 +538,10 @@ Since testing on a larger patient population is expensive for various reasons, t
 Aidan Tai
 
 \subsection*{Collaborators and Resources}
-None
+Just office hours
 
 \subsection*{Calibration}
-14
+23
 
 
 
