@@ -363,10 +363,11 @@ Since testing on a larger patient population is expensive for various reasons, t
     showing the same extreme confidence, but now for the opposite classification.
     This creates a very high variance across the 10 models ($var: 0.2499555618600618$)
     which comes from high variance in the model (this is because it is overfit/overtuned for bias)
-
   \end{enumerate}
 
-  \includegraphics[angle=270,width=0.4\linewidth]{images/Problem1.JPG}
+  \includegraphics[angle=270,width=0.1\linewidth]{images/Problem_1.JPG}
+  
+  Problem 1 notes (unimportant) can be found in supplementals
 \end{sol}
 
 
@@ -375,7 +376,9 @@ Since testing on a larger patient population is expensive for various reasons, t
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \begin{sol}{}{2}
-
+  \begin{enumerate}
+    \item 
+  \end{enumerate}
 
 \end{sol}
 
@@ -384,7 +387,76 @@ Since testing on a larger patient population is expensive for various reasons, t
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \begin{sol}{}{3}
+  \includegraphics[width=0.5\linewidth]{images/softmax_regression_result copy.png}
+  \includegraphics[width=0.5\linewidth]{images/basis_regression_result copy.png}\\
+  \includegraphics[width=0.5\linewidth]{images/knn1_regression_result copy.png}
+  \includegraphics[width=0.5\linewidth]{images/knn5_regression_result copy.png}
 
+  \begin{enumerate}
+    \item Since there are three classes for two dimensions, 
+    we can see that the softmax regressions divide up the 2D space with
+    three intersecting 2D vectors, assigning a class to the three regions
+    that result from these boundaries. By comparing the first softmax 
+    with the phi basis softmax, we can see that the basis model has a "preference"
+    toward the magnitude value in determining the boundary. We see this by
+    the fact that the three vectors are extremely steep, which means that
+    manipulating the Temperature feature of an observation to the point where
+    its classification changes would require a significantly bigger numerical
+    displacement compared to manipulating the Magnitude feature. 
+    We can understand this by considering the basis used for the basis\_model:
+    $[\ln(x_1 + 10), x_2^2]$.
+
+    Below is a visualization of the basis model
+    with the basis applied to the visualization's feature space:
+    \includegraphics[width=1\linewidth]{images/basis_regression_basis_result.png}
+
+    We can see that the model's regression appears intuitive under this visualization,
+    while the other visualization appears bizarre. Since the basis is "shrinking"
+    the magnitude values and "expanding" the temperature values, running the basis\_model's
+    regression on new data without applying the same basis will "shock" the model because the
+    temperature values will be appear "expanded" relative to the basis\_model's "shrunk"
+    feature space.
+
+    What's more important, however, is the fact that the actual regression is different as well; 
+    the basis\_regression has worse accuracy, because the new "shape" of the feature space
+    makes it more difficult to divide up the observations.
+
+    For the KNN regressions, we can see that the knn1\_regression model predicts
+    all of the training data with perfect accuracy because the lowest k values
+    tend to overfit. The knn3 model provides a potentially more generalizable
+    model with lower variance but higher bias. Interestingly enough, the knn1
+    model has smoother boundaries than knn3, which is a consequence of knn3's more complex
+    "breakpoints" in which small shifts across the feature space will change
+    the prediction because there is more likely to be a change in the set of k nearest neighbors
+    as the feature vector changes.
+    The increased complexity of this geometric calculation
+    (since more neighbors are considered) is represented by an increase in the
+    complexity of the boundary.
+    However, this may be mistaken as a visual display of an overall increased in the complexity 
+    of the model and thus increased variance, but increasing k actually leads to more generalization 
+    and lower variance.
+    \item The classification probabilities are:
+    \begin{enumerate}
+      \item 0 with 100\% (Probability per class: [1.00000000e+00 1.31778926e-28 2.56768493e-40])
+      \item 1 with 96.45\% (Probability per class: [0.03425432 0.96455651 0.00118917])
+      \item 0 with 100\% (Nearest Neighbor Class: [0])
+      \item 0 with 100\% (K Nearest Neighbor Classes: [0,0,0,0,0])
+    \end{enumerate}
+    All of the models predict 0 with 100\% probability except for the basis\_regression,
+    which has a different prediction with 96.45\% probability. We can see how considering
+    observations far away from most of the observations in our training data result
+    in potentially surprising classifications. Even worse, the model provides a very
+    "confident" prediction (as discussed in Problem 1, the model predicts with a very high probability)
+    which can be dangerous considering that extrapolating observations far outside of the training
+    data results in more unstable and uncertain predictions. It seems like the
+    different classification for the basis\_regression results from squaring the temperature
+    in the basis, making it impossible for the model to use the sign of the temperatures
+    to optimize the regression. Not only should we be aware of how models can be unstable
+    in extrapolation, but we should also pay close attention to how this sense of "extrapolation"
+    depends on the basis. In this case, observations with negative temperatures may have unstable 
+    or unreliable predictions despite being "close" to the training set.
+
+  \end{enumerate}
 \end{sol}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
