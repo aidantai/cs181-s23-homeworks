@@ -4,7 +4,7 @@
 \usepackage{booktabs}
 \title{Practical: Sample Assignment}
 \author{Names \\ Emails}
-\date{March 26, 2021}
+\date{March 1, 2023}
 \begin{document}
 
 
@@ -42,14 +42,14 @@ methods you tried compared to your baselines.\\
 \noindent Note that the limit for the report is 4 pages, please prioritize quality over 
 quantity in your submission.\\
 
-\section{Part A: Feature Engineering}
+\section{Part A: Feature Engineering, Baseline Models}
 
 \subsection{Approach}
 
 What did you do? When relevant, provide mathematical descriptions or pseudocode. Credit will be given for:
 
   \begin{itemize}
-  \item PCA:  Describe what the top 500 principal components represent, and how you computed them.
+  \item Representation: How do the two representations differ? What are potential drawbacks or advantages of each?
   \item Logistic regression: Describe how the model you trained predicts output probabilities for each class.
 
   \end{itemize}
@@ -68,13 +68,14 @@ This section should report on the following questions:
 
 \begin{itemize}
   \item Why do you hypothesize one feature representation performed better than the other?  
-  \item Why might have asked you to perform PCA first, and what is the impact of that choice?
+  \item Do you have an intuition for why these baselines might be performing as well/poorly as they are?
   \end{itemize}
 
-\section{Part B: Model Classes}
+\section{Part B: More Modeling}
 
+\subsection{First Step}
 
-\subsection{Approach}
+\subsubsection{Approach}
 
 What did you do? Credit will be given for:
 
@@ -82,7 +83,7 @@ What did you do? Credit will be given for:
   \item Provide mathematical descriptions or pseudocode to help us understand how the models you tried make predictions and are trained.
   \end{itemize}
 
-\subsection{Results}
+\subsubsection{Results}
 This section should report on the following questions: 
 
 \begin{itemize}
@@ -90,13 +91,13 @@ This section should report on the following questions:
 \end{itemize}
 
 
-\subsection{Discussion}
+\subsubsection{Discussion}
 Compare your results to the logistic regression models in Part A and discuss what your results imply about the task.
 
 
-\section{ Part C: Hyperparameter Tuning and Validation}
+\subsection{Hyperparameter Tuning and Validation}
 
-\subsection{Approach}
+\subsubsection{Approach}
 What did you do? Credit will be given for:
 
   \begin{itemize}
@@ -104,14 +105,21 @@ What did you do? Credit will be given for:
     How did you perform your hyperparameter search, and what hyperparameters did you search over?
   \end{itemize}
 
-\subsection{Results}
+\subsubsection{Results}
 Present your results of your hyperparameter search in a way that best reflects how to communicate your conclusions.
 
-\subsection{Discussion}
+\subsubsection{Discussion}
 
-Discuss your validation strategy and your conclusions.
+Why do you expect the tuned models to perform better than the baseline models and the model used in First Step? Discuss your validation strategy and your conclusions.
 
-\section{Bonus, Part D: Explore some more!}
+\section{Final Write-up and Reflections}
+
+\subsection{Discussion:} 
+
+Include your paragraph reflections on the key components listed in the instructions.
+
+
+\section{Optional Exploration, Part C: Explore some more!}
 \subsection{Approach}
 
 What did you do? Credit will be given for:
