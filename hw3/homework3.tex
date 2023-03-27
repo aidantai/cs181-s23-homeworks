@@ -209,12 +209,9 @@ Please submit your \textbf{\LaTeX\ file and code files to the Gradescope assignm
 \newpage
 \begin{sol}{}
   \begin{center}
-    \begin{enumerate}
-      \item Find $argmax_\theta \log(p(Y = y | \theta))$\\
-      $P(Y = y) = \binom{N}{y}\theta^{y}(1-\theta)^{N-y}$\\
-
-      
-    \end{enumerate}
+    \includegraphics[angle=270,width=0.9\linewidth]{1img1.JPG}
+    \includegraphics[angle=270,width=0.9\linewidth]{1img2.JPG}
+    \includegraphics[angle=270,width=0.9\linewidth]{1img3.JPG}
   \end{center}
 \end{sol}
 
@@ -372,56 +369,100 @@ In this problem, you will learn how to use PyTorch. This machine learning librar
   
 \end{problem}
 
-
+\newpage
 \subsection*{Solution:}
 
 Plot:
 
-% \includegraphics[width=\linewidth]{final_plot}
+\includegraphics[width=\linewidth]{final_plot}
 
 Code:
 
 \begin{lstlisting}[language=Python]
-n_inputs = 'not implemented'
-n_hiddens = 'not implemented'
-n_outputs = 'not implemented'
-
-W1 = 'not implemented'
-b1 = 'not implemented'
-W2 = 'not implemented'
-b2 = 'not implemented'
-
+  n_inputs = 784 
+  n_hiddens = 256 
+  n_outputs = 10 
+  
+  W1 = torch.nn.Parameter(torch.randn(size=(n_inputs, n_hiddens))*0.01) 
+  b1 = torch.nn.Parameter(torch.zeros(n_hiddens)) 
+  W2 = torch.nn.Parameter(torch.randn(size=(n_hiddens, n_outputs))*0.01) 
+  b2 = torch.nn.Parameter(torch.zeros(n_outputs)) 
+  
+  W1.requires_grad_ = True
+  b1.requires_grad_ = True
+  W2.requires_grad_ = True
+  b2.requires_grad_ = True
+  
+  params = [W1, b1, W2, b2]
 
 
 def relu(x):
-    'not implemented'
+    return x.clamp(0)  
 
 
 
 def softmax(x):
-    'not implemented'
+    X = X.exp()
+    sum = X.sum(dim=-1, keepdim=True)
+    return X / sum
 
 
 
 def net(X):
-  'not implemented'
+    X_flattened = X.flatten(start_dim=1)
+
+    # Linear algebra + functions
+    H = relu(X_flattened @ W1 + b1)
+    O = softmax(H @ W2 + b2)
+
+    return O
 
 
 
 def cross_entropy(y_hat, y):
-  'not implemented'
+    grab_indices = y_hat[range(len(y_hat)), y]
+    yhat_logged = grab_indices.log()
+    return -yhat_logged
 
 
 
 def sgd(params, lr=0.1):
-  'not implemented'
+    with torch.no_grad():
+    for param in params:
+      param -= lr * param.grad
+      param.grad.zero_()
 
 
 
 def train(net, params, train_iter, loss_func=cross_entropy, updater=sgd):
-  'not implemented'
+    epochs = 10
+    for epoch in tqdm(range(epochs)):
+      for X, y in train_iter:
+        y_hat = net(X)
+        loss = loss_func(y_hat, y).mean()
+        loss.backward()
+        updater(params)
 
 \end{lstlisting}
+
+\newpage
+\begin{sol}{}
+  \begin{center}
+    \begin{enumerate}
+      \item see code
+      \item We can see that as the loss function decreases,
+      the accuracy increases. For each epoch, the improvement
+      is smaller, and it appears that the gradient descent is
+      converging well.
+      \item Although the test accuracy in distribution is extremely good (0.9963235294117647), 
+      the test accuracy OOD is very bad (0.4244620203971863). It looks like the model
+      is not protected against OOD data, which is very problematic for
+      sensitive models like image recognition for autonomous vehicles.
+
+
+    \end{enumerate}
+  \end{center}
+\end{sol}
 
 \newpage
 
@@ -523,9 +564,67 @@ words in total). Bullet points are appropriate.
 \end{problem}
 
 \newpage
+\begin{sol}{}
+  \begin{center}
+    \begin{enumerate}
+      \item 
+        \begin{enumerate}
+          \item Hardware attack: Physical damage to the sensors
+          (LiDAR or ultrasonic damage) would disrupt the model's
+          ability to accurately predict its surroundings. Someone
+          could do something as simple as destroying the sensors with
+          a hammer to weaken the predictive capacities.
+          \item Software attack: If possible, the code could be 
+          altered to tamper with the car's predictions, especially if
+          the autonomous vehicle's model can be updated online by
+          the company (or by hackers)
+          \item Social attack: Since neural networks are deployed by
+          humans, infiltrating the agency and participating in the
+          process of designing the model could create an opportunity
+          to intentionally worsen the model/create special vulnerabilities
+          which can be easily triggered to cause a crash (i.e. make the
+          autonomous vehicle easily confused by shining a specific infrared
+          wavelength on the sensors).
+        \end{enumerate}
+      \item 
+        \begin{enumerate}
+          \item To protect from physical damage, Tesla could
+          improve the materials used for the sensors to make
+          the hardware more resistant to blunt force.
+          \item To protect from potential hacking, Tesla could
+          improve the security of the code deployment process
+          to ensure that new updates are well-tested and protected
+          from attacks.
+          \item To protect from social engineering, Tesla could
+          make sure that workers are educated and wary of potential
+          social attacks with a program to inform everyone and systems
+          to prevent social engineers from attempting attacks.
+        \end{enumerate}
+      \item 
+        \begin{enumerate}
+          \item Increase regulation on model testing to check for
+          faults in the neural network, (perhaps institute a
+          requirement for models to to be tested by an external 
+          organization, if said organizations exist). 
+          \item This could
+          decrease the likelihood that online hacks or socially
+          engineered hacks make it through the code base, since
+          those attacks are more likely to be caught. It
+          also decreases the likelihood that simple human errors
+          make it through deployment. 
+          \item Regulation on testing is difficult to implement,
+          especially considering how complicated models are. It may
+          be hard to actually ensure that testing is done well, and
+          most of the time, only the engineers will know how to
+          properly test their models. However, in the far future,
+          it may be common practice it heavily cross-test models
+          with external organizations.
+        \end{enumerate}
 
-\subsection*{Solution:}
-
+      
+    \end{enumerate}
+  \end{center}
+\end{sol}
 
 \newpage
 
@@ -539,7 +638,7 @@ Aidan Tai
 Course materials
 
 \subsection*{Calibration}
-
+15
 
 
 \end{document}
